@@ -16,13 +16,12 @@ namespace Event_Homework
         {
             switch (Number)
             {
-                // Sort from A to Z 
                 case 1: Console.WriteLine("Entered 1"); break;
-                // Sort from Z to A 
                 case 2: Console.WriteLine("Entered 2"); break;
             }
         }
-   
+
+        // Sorting Person[] from A to Z
         public static void SortAZ(Person[] PersonList)
         {
             for (int i = 0; i < PersonList.Length; i++)
@@ -31,6 +30,7 @@ namespace Event_Homework
                     (PersonList[j - 1], PersonList[j]) = (PersonList[j], PersonList[j - 1]);
         }
 
+        // Sorting Person[] from Z to A
         public static void SortZA(Person[] PersonList) 
         {
             for (int i = 0; i < PersonList.Length; i++)
@@ -45,7 +45,7 @@ namespace Event_Homework
 
         static void Main(string[] args)
         {
-            
+            // Create array Person[5]
             Person[] PersonArray = new Person[5];
             PersonArray[0] = new Person("Lee");
             PersonArray[1] = new Person("Week");
@@ -53,6 +53,7 @@ namespace Event_Homework
             PersonArray[3] = new Person("Freeman");
             PersonArray[4] = new Person("Shtirlich");
 
+            // Registr events
             SortEventAZ += SortAZ;
             SortEventZA += SortZA;
 
@@ -64,11 +65,14 @@ namespace Event_Homework
                 {
                     switch(reader.Read())
                     {
+                        // Sorting PersonArray from A to Z by event 
                         case 1:SortEventAZ.Invoke(PersonArray);break;
+                        // Sorting PersonArray from Z to A by event 
                         case 2:SortEventZA(PersonArray);break;
-                    }
-                    
+                    }      
                 }
+
+                // Catching exceptions from user
                 catch (FormatException)
                 {
                     Console.WriteLine("Wrong format");
@@ -77,13 +81,7 @@ namespace Event_Homework
                 {
                     Console.WriteLine(ex.Message, ex.Value);
                 }
-                catch (IndexOutOfRangeException)
-                {
-                    Console.WriteLine("Sorting out of range array");
-                }
-
             }
         }
     }
-
 }
