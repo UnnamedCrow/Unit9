@@ -7,13 +7,11 @@ using System.Threading.Tasks;
 
 namespace Unit9
 {
-    //    Создайте свой тип исключения.
-    //    Сделайте массив из пяти различных видов исключений, включая собственный тип исключения. 
-    //    Реализуйте конструкцию TryCatchFinally, в которой будет итерация на каждый тип исключения (блок finally по желанию).
-    //    В блоке catch выведите в консольном сообщении текст исключения.
+    // Class with my exception
     class UserException : Exception
     {
         public int Value { get; set; }
+        public UserException() { }
         public UserException(string message, int Value) : base(message) 
         {
             this.Value = Value;
@@ -23,11 +21,12 @@ namespace Unit9
 
     internal class Program
     {
+
         static void Main(string[] args)
         {
             // Array with 5 types of Exceptions
             Exception[] ExceptionArray = new Exception[5];
-            ExceptionArray[0] = new UserException("UserException", 1);
+            ExceptionArray[0] = new UserException();
             ExceptionArray[1] = new FormatException();
             ExceptionArray[2] = new ArgumentException();
             ExceptionArray[3] = new IndexOutOfRangeException();
