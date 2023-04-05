@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace Event_Homework
 {
-    internal class UserException
+    class UserException : Exception
     {
+        public int Value { get; set; }
+        public UserException() { }
+        public UserException(string message, int Value) : base(message)
+        {
+            this.Value = Value;
+        }
+
     }
 }

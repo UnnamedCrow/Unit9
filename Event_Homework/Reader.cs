@@ -10,7 +10,7 @@ namespace Event_Homework
     {
         public delegate void ReadNumberDelegate(int Number);
         public event ReadNumberDelegate ReadNumberEvent;
-        public void Read()
+        public int Read()
         {
             Console.WriteLine("1 - sorting from A to Z, 2 - sorting from Z to A");
             int Number;
@@ -21,7 +21,8 @@ namespace Event_Homework
             }
             else
                 throw new FormatException();
-            ReadNumberEvent(Number);
+            ReadNumberEvent(Number);    
+            return Number;
 
         }
 

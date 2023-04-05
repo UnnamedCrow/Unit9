@@ -17,16 +17,16 @@ namespace Event_Homework
             switch (Number)
             {
                 // Sort from A to Z 
-                case 1: SortEventAZ.Invoke(PersonArray); break;
+                case 1: Console.WriteLine("Entered 1"); break;
                 // Sort from Z to A 
-                case 2: SortEventZA.Invoke();  break;
+                case 2: Console.WriteLine("Entered 2"); break;
             }
         }
    
         public static void SortAZ(Person[] PersonList)
         {
             for (int i = 0; i < PersonList.Length; i++)
-                for (int j = 1; i < PersonList.Length - i; j++)
+                for (int j = 1; j < PersonList.Length - i; j++)
                 if (PersonList[j - 1] > PersonList[j])
                     (PersonList[j - 1], PersonList[j]) = (PersonList[j], PersonList[j - 1]);
         }
@@ -34,14 +34,15 @@ namespace Event_Homework
         public static void SortZA(Person[] PersonList) 
         {
             for (int i = 0; i < PersonList.Length; i++)
-                for (int j = 1; i < PersonList.Length - i; j++)
+                for (int j = 1; j < PersonList.Length - i; j++)
                     if (PersonList[j - 1] < PersonList[j])
-                        (PersonList[j - 1], PersonList[j]) = (PersonList[j], PersonList[j - 1]);
+                        (PersonList[j], PersonList[j - 1]) = (PersonList[j - 1], PersonList[j]);
         }
 
         public delegate void SortDelegate(Person[] PersonList);
         public static event SortDelegate SortEventAZ;
         public static event SortDelegate SortEventZA;
+
         static void Main(string[] args)
         {
             
@@ -57,21 +58,30 @@ namespace Event_Homework
 
             ReadNumber reader = new ReadNumber();
             reader.ReadNumberEvent += Sort;
-            try
+            while (true)
             {
-                reader.Read();
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("Wrong format");
-            }
-            catch (UserException ex)
-            {
-                Console.WriteLine(ex.Message, ex.Value);
-            }
-            catch (IndexOutOfRangeException)
-            {
-                Console.WriteLine("Sorting out of range array");
+                try
+                {
+                    switch(reader.Read())
+                    {
+                        case 1:SortEventAZ.Invoke(PersonArray);break;
+                        case 2:SortEventZA(PersonArray);break;
+                    }
+                    
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Wrong format");
+                }
+                catch (UserException ex)
+                {
+                    Console.WriteLine(ex.Message, ex.Value);
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    Console.WriteLine("Sorting out of range array");
+                }
+
             }
         }
     }
